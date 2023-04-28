@@ -1,6 +1,11 @@
 # User Added
+.gitignore
 app.js
-
+/routes
+/config
+/models
+/migrations
+/seeders
 # Logs
 logs
 *.log
