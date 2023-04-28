@@ -2,9 +2,9 @@
 .gitignore
 # app.js
 # /routes
-/config
-/models
-/migrations
+# /config
+# /models
+# /migrations
 /seeders
 # Logs
 logs
