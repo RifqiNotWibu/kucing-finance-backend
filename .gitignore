@@ -1,7 +1,7 @@
 # User Added
 .gitignore
 # app.js
-/routes
+# /routes
 /config
 /models
 /migrations
