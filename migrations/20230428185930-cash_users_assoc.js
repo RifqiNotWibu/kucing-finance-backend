@@ -15,7 +15,7 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.addConstraint('CASH', {
+    await queryInterface.removeConstraint('CASH', {
       fields: ['userId'],
       type: 'foreign key',
       name: 'cash_users_assoc',

@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      TRANSACTIONS.belongsTo(models.CARDS);
+      models.CARDS.hasMany(TRANSACTIONS);
+
+      TRANSACTIONS.belongsTo(models.CASH);
+      models.CASH.hasMany(TRANSACTIONS);
+
+      TRANSACTIONS.belongsTo(models.CATEGORIES);
+      models.CATEGORIES.hasMany(TRANSACTIONS);
     }
   }
   TRANSACTIONS.init({
