@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class TRANSCATEGORY extends Model {
+  class TRANSCATEGORIES extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,12 +13,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  TRANSCATEGORY.init({
+  TRANSCATEGORIES.init({
     transId: DataTypes.INTEGER,
-    categId: DataTypes.INTEGER
+    categId: DataTypes.INTEGER,
+    updatedAt: false,
   }, {
     sequelize,
-    modelName: 'TRANSCATEGORY',
+    modelName: 'TRANSCATEGORIES',
   });
-  return TRANSCATEGORY;
+  return TRANSCATEGORIES;
 };

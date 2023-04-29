@@ -22,12 +22,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   TRANSACTIONS.init({
+    userId: DataTypes.INTEGER,
     transAccount: DataTypes.INTEGER,
     transToAccount: DataTypes.INTEGER,
     categId: DataTypes.INTEGER,
     transType: DataTypes.STRING,
     transAmount: DataTypes.FLOAT,
-    transNote: DataTypes.STRING
+    transNote: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'TRANSACTIONS',
