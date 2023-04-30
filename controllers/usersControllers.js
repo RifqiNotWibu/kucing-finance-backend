@@ -1,4 +1,5 @@
 const { users } = require("../models");
+const emailValidator = require("email-validator");
 
 //SIGNUP
 class userControllers {
@@ -10,7 +11,12 @@ class userControllers {
       if (findExistingEmail) {
         return res.status(400).json({ message: "Email already exists!" });
       }
-      //VALIDASI CHARACTER LENGTH!!
+
+      emailValidator.validate(email);
+      if (!emailValidator) {
+        return res.status(400).json({ message: "Incorrect email format!" });
+      }
+
       let signUp = await users.create({
         username,
         email,
