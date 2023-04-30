@@ -1,17 +1,13 @@
 const express = require('express');
+const router = require('./routers');
 const app = express();
-const port = 3000;
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-    res.sendStatus(200);
-    res.send('This is a Homepage');
-})
+const port = 3333;
 
-app.get('/error', (req, res) => {
-    res.sendStatus(403).send({
-        message
-        : 'This page is Forbidden'
-    })
-
-})
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.use(router);
+app.listen(port, () => {
+  console.log('server has started on port ' + port);
+});
