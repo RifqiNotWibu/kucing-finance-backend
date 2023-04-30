@@ -6,7 +6,7 @@ class userControllers {
   static async signUp(req, res, next) {
     try {
       const { username, email, password } = req.body;
-      // console.log(req.body);
+
       if (!emailValidator.validate(email)) {
         return res.status(400).json({ message: "Incorrect email format!" });
       }
@@ -36,10 +36,12 @@ class userControllers {
           username: username,
           password: password,
         },
-        { where: { id: req.params.userId } }
+        {
+          where: { id: req.params.userId },
+        }
       );
 
-      res.status(201).json({ message: "User updated succesfully" });
+      res.status(200).json({ message: "User updated succesfully" });
     } catch (err) {
       next(err);
     }
