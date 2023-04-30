@@ -4,8 +4,10 @@ const app = express();
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
 app.use(router);
-app.listen(3000 || process.env.PORT, () => {
+
+var port = process.env.PORT || 3000;
+
+app.listen(port, "0.0.0.0", () => {
   console.log("server has started on port " + port);
 });
