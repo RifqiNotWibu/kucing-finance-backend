@@ -1,4 +1,4 @@
-const { USERS } = require("../models");
+const { users } = require("../models");
 
 //SIGNUP
 class userControllers {
@@ -6,12 +6,12 @@ class userControllers {
     try {
       const { username, email, password } = req.body;
       // console.log(req.body);
-      let findExistingEmail = await USERS.findOne({ where: { email } });
+      let findExistingEmail = await users.findOne({ where: { email } });
       if (findExistingEmail) {
         return res.status(400).json({ message: "Email already exists!" });
       }
       //VALIDASI CHARACTER LENGTH!!
-      let signUp = await USERS.create({
+      let signUp = await users.create({
         username,
         email,
         password,

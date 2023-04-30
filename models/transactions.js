@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class TRANSACTIONS extends Model {
     /**
@@ -21,17 +19,20 @@ module.exports = (sequelize, DataTypes) => {
       models.CATEGORIES.hasMany(TRANSACTIONS);
     }
   }
-  TRANSACTIONS.init({
-    userId: DataTypes.INTEGER,
-    transAccount: DataTypes.INTEGER,
-    transToAccount: DataTypes.INTEGER,
-    categId: DataTypes.INTEGER,
-    transType: DataTypes.STRING,
-    transAmount: DataTypes.FLOAT,
-    transNote: DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'TRANSACTIONS',
-  });
+  TRANSACTIONS.init(
+    {
+      userId: DataTypes.INTEGER,
+      transAccount: DataTypes.INTEGER,
+      transToAccount: DataTypes.INTEGER,
+      categId: DataTypes.INTEGER,
+      transType: DataTypes.STRING,
+      transAmount: DataTypes.FLOAT,
+      transNote: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "TRANSACTIONS",
+    }
+  );
   return TRANSACTIONS;
 };
