@@ -5,9 +5,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const port = 3333;
-
 app.use(router);
-app.listen(port, () => {
+app.listen(3000 || process.env.PORT, () => {
   console.log("server has started on port " + port);
 });
