@@ -27,6 +27,23 @@ class userControllers {
       next(err);
     }
   }
+
+  static async updateUser(req, res, next) {
+    try {
+      const { username, password } = req.body;
+      let updateUser = await users.update(
+        {
+          username,
+          password,
+        },
+        { where: { id: req.params.userId } }
+      );
+
+      res.status(201).json({ message: "User updated succesfully" });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = userControllers;
