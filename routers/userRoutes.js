@@ -4,6 +4,6 @@ const router = express.Router();
 const usersControllers = require("../controllers/usersControllers.js");
 
 router.post("/signup", usersControllers.signUp);
-router.update("/update/:userId", usersControllers.updateUser);
+router.patch("/update/:userId", usersControllers.updateUser);
 
 module.exports = router;
