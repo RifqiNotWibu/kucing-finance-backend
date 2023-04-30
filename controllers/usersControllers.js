@@ -33,8 +33,8 @@ class userControllers {
       const { username, password } = req.body;
       let updateUser = await users.update(
         {
-          username,
-          password,
+          username: username,
+          password: password,
         },
         { where: { id: req.params.userId } }
       );
