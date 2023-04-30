@@ -7,14 +7,14 @@ class userControllers {
     try {
       const { username, email, password } = req.body;
       // console.log(req.body);
-      let findExistingEmail = await users.findOne({ where: { email } });
-      if (findExistingEmail) {
-        return res.status(400).json({ message: "Email already exists!" });
-      }
-
       emailValidator.validate(email);
       if (!emailValidator) {
         return res.status(400).json({ message: "Incorrect email format!" });
+      }
+
+      let findExistingEmail = await users.findOne({ where: { email } });
+      if (findExistingEmail) {
+        return res.status(400).json({ message: "Email already exists!" });
       }
 
       let signUp = await users.create({
