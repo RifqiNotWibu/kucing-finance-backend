@@ -7,8 +7,7 @@ class userControllers {
     try {
       const { username, email, password } = req.body;
       // console.log(req.body);
-      emailValidator.validate(email);
-      if (!emailValidator) {
+      if (!emailValidator.validate(email)) {
         return res.status(400).json({ message: "Incorrect email format!" });
       }
 
