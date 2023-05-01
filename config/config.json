@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "root",
-    "password": "6c5T2dv8PpFda0aYF2V5",
-    "database": "railway",
-    "host": "containers-us-west-100.railway.app",
+    "password": null,
+    "database": "kucingfinance",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
