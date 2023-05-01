@@ -1,7 +1,6 @@
 const { users } = require("../models");
 const emailValidator = require("email-validator");
 
-//SIGNUP
 class userControllers {
   static async signUp(req, res, next) {
     try {
