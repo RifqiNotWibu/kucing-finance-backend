@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       cardName: DataTypes.STRING,
       cardBalance: DataTypes.FLOAT,
       cardType: DataTypes.STRING,
+      isActive: DataTypes.BOOLEAN,
     },
     {
       sequelize,
