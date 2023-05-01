@@ -5,6 +5,6 @@ const cardsControllers = require("../controllers/cardsControllers.js");
 
 router.post("/add", cardsControllers.addCard);
 router.patch("/update", cardsControllers.updateCard);
-router.post("/delete", cardsControllers.deleteUser);
+router.post("/delete", cardsControllers.deleteCard);
 
 module.exports = router;
