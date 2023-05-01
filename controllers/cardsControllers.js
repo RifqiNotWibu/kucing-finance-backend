@@ -15,3 +15,5 @@ class cardsControllers {
     }
   }
 }
+
+module.exports = cardsControllers;
