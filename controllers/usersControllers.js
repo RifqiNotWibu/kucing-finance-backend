@@ -10,8 +10,9 @@ class userControllers {
       if (!emailValidator.validate(email)) {
         return res.status(400).json({ message: "Incorrect email format!" });
       }
-
-      let findExistingEmail = await users.findOne({ where: { email } });
+      let findExistingEmail = await users.findOne({
+        where: { email, isActive: 1 },
+      });
       if (findExistingEmail) {
         return res.status(400).json({ message: "Email already exists!" });
       }
@@ -37,11 +38,28 @@ class userControllers {
           password: password,
         },
         {
-          where: { id: req.params.userId },
+          where: { id: req.params.userId, isActive: 1 },
         }
       );
 
       res.status(200).json({ message: "User updated succesfully" });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async deleteUser(req, res, next) {
+    try {
+      const { password } = req.body;
+      let passwordCheck = await users.findOne({ where: { id: req.params.id } });
+      if (password == passwordCheck) {
+        return res.status(400).json({ message: "Password does not match" });
+      }
+      let deleteUser = users.update({
+        is_active: 0,
+      });
+
+      res.status(200).json({ message: "User deleted succesfully" });
     } catch (err) {
       next(err);
     }
