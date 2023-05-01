@@ -14,6 +14,22 @@ class cardsControllers {
       res.status(500).json({ message: `${err.message}` });
     }
   }
+
+  static async updateCard(req, res, next) {
+    try {
+      const { id, cardName } = req.body;
+      await cards.update(
+        {
+          cardName,
+        },
+        {
+          where: { id },
+        }
+      );
+    } catch (err) {
+      res.status(500).json({ message: `${err.message}` });
+    }
+  }
 }
 
 module.exports = cardsControllers;
