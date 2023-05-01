@@ -17,51 +17,60 @@ class userControllers {
         return res.status(400).json({ message: "Email already exists!" });
       }
 
-      let signUp = await users.create({
+      //CREATE QUERY
+      await users.create({
         username,
         email,
         password,
       });
-
       res.status(201).json({ message: "User registered successfully" });
     } catch (err) {
-      next(err);
+      res.status(500).json({ message: `${err.message}` });
     }
   }
 
   static async updateUser(req, res, next) {
     try {
-      const { username, password } = req.body;
-      let updateUser = await users.update(
+      const { id, username, password } = req.body;
+
+      //UPDATE QUERY
+      await users.update(
         {
           username: username,
           password: password,
         },
         {
-          where: { id: req.params.userId, isActive: 1 },
+          where: { id, isActive: 1 },
         }
       );
-
       res.status(200).json({ message: "User updated succesfully" });
     } catch (err) {
-      next(err);
+      res.status(500).json({ message: `${err.message}` });
     }
   }
 
   static async deleteUser(req, res, next) {
     try {
-      const { password } = req.body;
-      let passwordCheck = await users.findOne({ where: { id: req.params.id } });
-      if (password == passwordCheck) {
+      const { id, password } = req.body;
+      let passwordCheck = await users.findOne({ where: { id } });
+      if (password != passwordCheck.password) {
+        //STUDYCASE
+        console.log(passwordCheck);
         return res.status(400).json({ message: "Password does not match" });
       }
-      let deleteUser = users.update({
-        is_active: 0,
-      });
 
+      //DELETE QUERY
+      users.update(
+        {
+          isActive: 0,
+        },
+        {
+          where: { id, isActive: 1 },
+        }
+      );
       res.status(200).json({ message: "User deleted succesfully" });
     } catch (err) {
-      next(err);
+      res.status(500).json({ message: `${err.message}` });
     }
   }
 }
