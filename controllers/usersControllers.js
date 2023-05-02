@@ -2,7 +2,7 @@ const { users } = require("../models");
 const emailValidator = require("email-validator");
 
 class userControllers {
-  static async signUp(req, res, next) {
+  static async signUp(req, res) {
     try {
       const { username, email, password } = req.body;
 
@@ -28,7 +28,7 @@ class userControllers {
     }
   }
 
-  static async updateUser(req, res, next) {
+  static async updateUser(req, res) {
     try {
       const { id, username, password } = req.body;
 
@@ -48,7 +48,7 @@ class userControllers {
     }
   }
 
-  static async deleteUser(req, res, next) {
+  static async deleteUser(req, res) {
     try {
       const { id, password } = req.body;
       let passwordCheck = await users.findOne({ where: { id } });

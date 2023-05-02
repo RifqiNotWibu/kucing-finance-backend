@@ -1,7 +1,7 @@
 const { cards } = require("../models");
 // KURANG GET CARD
 class cardsControllers {
-  static async addCard(req, res, next) {
+  static async addCard(req, res) {
     try {
       const { userId, cardName, cardType } = req.body;
       await cards.create({
@@ -15,7 +15,7 @@ class cardsControllers {
     }
   }
 
-  static async updateCard(req, res, next) {
+  static async updateCard(req, res) {
     try {
       const { id, cardName } = req.body;
       await cards.update(

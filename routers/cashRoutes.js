@@ -3,8 +3,8 @@ const router = express.Router();
 
 const cashControllers = require("../controllers/cashControllers.js");
 
-router.post("/add", cashControllers.addCard);
-router.patch("/update", cashControllers.updateCard);
-router.post("/delete", cashControllers.deleteCard);
+router.post("/add", cashControllers.addCash);
+router.patch("/update", cashControllers.updateCash);
+router.post("/delete", cashControllers.deleteCash);
 
 module.exports = router;

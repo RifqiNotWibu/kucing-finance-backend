@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
       TRANSACTIONS.belongsTo(models.cards);
       models.cards.hasMany(TRANSACTIONS);
 
-      TRANSACTIONS.belongsTo(models.CASH);
-      models.CASH.hasMany(TRANSACTIONS);
+      TRANSACTIONS.belongsTo(models.cash);
+      models.cash.hasMany(TRANSACTIONS);
 
       TRANSACTIONS.belongsTo(models.CATEGORIES);
       models.CATEGORIES.hasMany(TRANSACTIONS);

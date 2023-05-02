@@ -1,7 +1,7 @@
 const { cash } = require("../models");
-// KURANG GET CASH
+// KURANG GET cash
 class cashControllers {
-  static async addCash(req, res, next) {
+  static async addCash(req, res) {
     try {
       const { userId, cashName, cashType } = req.body;
       await cash.create({
@@ -15,7 +15,7 @@ class cashControllers {
     }
   }
 
-  static async updatecash(req, res, next) {
+  static async updateCash(req, res) {
     try {
       const { id, cashName } = req.body;
       await cash.update(
