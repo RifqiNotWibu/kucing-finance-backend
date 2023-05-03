@@ -3,6 +3,7 @@ const router = express.Router();
 
 const transactionsControllers = require("../controllers/transactionsControllers.js");
 
+router.get("/get", transactionsControllers.getTransaction);
 router.post("/add", transactionsControllers.addTransaction);
 // router.patch("/update", transactionsControllers.updateCash);
 // router.post("/delete", transactionsControllers.deleteCash);
