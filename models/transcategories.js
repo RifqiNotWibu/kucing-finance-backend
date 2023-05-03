@@ -1,25 +1,30 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class TRANSCATEGORIES extends Model {
+  class transcategories extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      transcategories.belongsTo(models.categories);
+      models.categories.hasMany(transcategories);
+
+      transcategories.belongsTo(models.transactions);
+      models.transactions.hasMany(transcategories);
     }
   }
-  TRANSCATEGORIES.init({
-    transId: DataTypes.INTEGER,
-    categId: DataTypes.INTEGER,
-    updatedAt: false,
-  }, {
-    sequelize,
-    modelName: 'TRANSCATEGORIES',
-  });
-  return TRANSCATEGORIES;
+  transcategories.init(
+    {
+      transId: DataTypes.INTEGER,
+      categId: DataTypes.INTEGER,
+      updatedAt: false,
+    },
+    {
+      sequelize,
+      modelName: "transcategories",
+    }
+  );
+  return transcategories;
 };
