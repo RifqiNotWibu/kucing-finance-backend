@@ -27,6 +27,19 @@ class transactionsControllers {
       res.status(500).json({ message: `${err.message}` });
     }
   }
+
+  static async getTransaction(req, res) {
+    try {
+      const { userId, createdAt } = req.body;
+      let getTransaction = transactions.findAll({
+        where: { userId },
+        include: { model: categories, as: "transCateg" },
+      });
+      res.status(201).json(getTransaction);
+    } catch (err) {
+      res.status(500).json({ message: `${err.message}` });
+    }
+  }
 }
 
 module.exports = transactionsControllers;
