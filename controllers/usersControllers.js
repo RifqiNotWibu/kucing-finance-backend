@@ -72,6 +72,19 @@ class userControllers {
       res.status(500).json({ message: `${err.message}` });
     }
   }
+
+  static async getUser(req, res, next) {
+    try {
+      const { id } = req.body;
+      let getUser = await users.findOne({
+        where: { id, isActive: 1 },
+      });
+      // console.log(getUser);
+      res.status(200).json(getUser);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = userControllers;
