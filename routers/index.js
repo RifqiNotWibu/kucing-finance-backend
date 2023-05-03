@@ -10,4 +10,7 @@ router.use("/card", cardRoutes);
 const cashRoutes = require("./cashRoutes.js");
 router.use("/cash", cashRoutes);
 
+const categoryRoutes = require("./categoryRoutes.js");
+router.use("/categories", categoryRoutes);
+
 module.exports = router;
