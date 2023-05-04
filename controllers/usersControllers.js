@@ -1,5 +1,6 @@
 const { users } = require("../models");
 const emailValidator = require("email-validator");
+const { comparePassword, hashPassword } = require("../utils/bcryptUtils");
 
 class userControllers {
   static async signUp(req, res) {
@@ -25,6 +26,35 @@ class userControllers {
       res.status(201).json({ message: "User registered successfully" });
     } catch (err) {
       res.status(500).json({ message: `${err.message}` });
+    }
+  }
+
+  static async login(req, res) {
+    try {
+      const { email, password } = req.body;
+
+      let findUser = await users.findOne({
+        where: { email, isActive: 1 },
+      });
+
+      if (!findUser) {
+        return res.status(401).json({ message: "Email is not authorized" });
+      }
+
+      const checkPassword = await comparePassword(password, findUser.password);
+
+      if (!checkPassword) {
+        return res.status(401).json({ message: "You are not authorized" });
+      }
+
+      return res.status(200).json({
+        data: {
+          id: findUser.id,
+          username: findUser.username,
+        },
+      });
+    } catch (err) {
+      next(err);
     }
   }
 
