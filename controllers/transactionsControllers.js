@@ -1,4 +1,4 @@
-const { transactions } = require("../models");
+const { transactions, categories } = require("../models");
 
 class transactionsControllers {
   static async addTransaction(req, res) {
@@ -28,16 +28,15 @@ class transactionsControllers {
     }
   }
 
-  static async getTransaction(req, res) {
+  static async getTransaction(req, res, next) {
     try {
-      const { userId, createdAt } = req.body;
-      let getTransaction = transactions.findAll({
+      const { userId } = req.body;
+      let getTransaction = await transactions.findAll({
         where: { userId },
-        include: { model: categories, as: "transCateg" },
       });
-      res.status(201).json(getTransaction);
+      res.status(200).json(getTransaction);
     } catch (err) {
-      res.status(500).json({ message: `${err.message}` });
+      next(err);
     }
   }
 }
