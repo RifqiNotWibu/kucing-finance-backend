@@ -1,9 +1,7 @@
 const bcrypt = require("bcrypt");
-const salt = bcrypt.genSalt(10);
 
 const hashPassword = (payload) => {
-  console.log(payload);
-  return bcrypt.hashSync(payload, salt);
+  return bcrypt.hashSync(payload, 10);
 };
 
 const comparePassword = (password, hashedPassword) => {
