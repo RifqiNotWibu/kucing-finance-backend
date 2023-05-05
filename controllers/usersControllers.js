@@ -1,43 +1,41 @@
 const { users } = require("../models");
 const emailValidator = require("email-validator");
-const { hashPassword } = require("../utils/bcryptUtils");
+const { hashPassword, comparePassword } = require("../utils/bcryptUtils");
 
 class userControllers {
-  static async signUp(req, res, next) {
+  static async signUp(req, res) {
     try {
-      const { username, email, password } = req.body;
-      // let hashingPass = await hashPassword(password);
+      const { username, email, pass } = req.body;
+      let password = await hashPassword(pass);
+
+      if (!emailValidator.validate(email)) {
+        return res.status(400).json({ message: "Incorrect email format!" });
+      }
+      let findExistingEmail = await users.findOne({
+        where: { email, isActive: 1 },
+      });
+      if (findExistingEmail) {
+        return res.status(400).json({ message: "Email already exists!" });
+      }
 
       //CREATE QUERY
-      let test = await users.create({
+      let signUp = await users.create({
         username,
         email,
         password,
       });
 
-      // if (!emailValidator.validate(email)) {
-      //   return res.status(400).json({ message: "Incorrect email format!" });
-      // }
-      // let findExistingEmail = await users.findOne({
-      //   where: { email, isActive: 1 },
-      // });
-      // if (findExistingEmail) {
-      //   return res.status(400).json({ message: "Email already exists!" });
-      // }
-
-      // res.status(201).json({ message: "User registered successfully" });
-      res.status(201).json(test);
+      res.status(201).json({ message: "User registered successfully" });
     } catch (err) {
-      next(err);
-      // res.status(500).json({ message: `${err.message}` });
+      res.status(500).json({ message: `${err.message}` });
     }
   }
 
   static async login(req, res) {
     try {
-      const { email, password } = req.body;
+      const { email, pass } = req.body;
 
-      let findUser = await users.findOne({
+      const findUser = await users.findOne({
         where: { email, isActive: 1 },
       });
 
@@ -45,20 +43,21 @@ class userControllers {
         return res.status(401).json({ message: "Email is not authorized" });
       }
 
-      const checkPassword = await comparePassword(password, findUser.password);
+      const checkPassword = await comparePassword(pass, findUser.password);
 
       if (!checkPassword) {
         return res.status(401).json({ message: "You are not authorized" });
       }
 
       return res.status(200).json({
+        message: "User login success!",
         data: {
           id: findUser.id,
           username: findUser.username,
         },
       });
     } catch (err) {
-      next(err);
+      res.status(500).json({ message: `${err.message}` });
     }
   }
 
