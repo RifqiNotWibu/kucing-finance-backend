@@ -3,11 +3,11 @@ const { cash } = require("../models");
 class cashControllers {
   static async addCash(req, res) {
     try {
-      const { userId, cashName, cashType } = req.body;
+      const { userId, cashName, cashBalance } = req.body;
       await cash.create({
         userId,
         cashName,
-        cashType,
+        cashBalance,
       });
       res.status(201).json({ message: "Cash added successfully!" });
     } catch (err) {
