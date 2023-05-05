@@ -1,32 +1,35 @@
 const { users } = require("../models");
 const emailValidator = require("email-validator");
-const { comparePassword, hashPassword } = require("../utils/bcryptUtils");
+const { hashPassword } = require("../utils/bcryptUtils");
 
 class userControllers {
-  static async signUp(req, res) {
+  static async signUp(req, res, next) {
     try {
       const { username, email, password } = req.body;
-      let hashedPassword = await hashPassword(password);
-
-      if (!emailValidator.validate(email)) {
-        return res.status(400).json({ message: "Incorrect email format!" });
-      }
-      let findExistingEmail = await users.findOne({
-        where: { email, isActive: 1 },
-      });
-      if (findExistingEmail) {
-        return res.status(400).json({ message: "Email already exists!" });
-      }
+      // let hashingPass = await hashPassword(password);
 
       //CREATE QUERY
-      await users.create({
+      let test = await users.create({
         username,
         email,
-        hashedPassword,
+        password,
       });
-      res.status(201).json({ message: "User registered successfully" });
+
+      // if (!emailValidator.validate(email)) {
+      //   return res.status(400).json({ message: "Incorrect email format!" });
+      // }
+      // let findExistingEmail = await users.findOne({
+      //   where: { email, isActive: 1 },
+      // });
+      // if (findExistingEmail) {
+      //   return res.status(400).json({ message: "Email already exists!" });
+      // }
+
+      // res.status(201).json({ message: "User registered successfully" });
+      res.status(201).json(test);
     } catch (err) {
-      res.status(500).json({ message: `${err.message}` });
+      next(err);
+      // res.status(500).json({ message: `${err.message}` });
     }
   }
 
