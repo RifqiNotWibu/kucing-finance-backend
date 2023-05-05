@@ -3,11 +3,11 @@ const { cards } = require("../models");
 class cardsControllers {
   static async addCard(req, res) {
     try {
-      const { userId, cardName, cardType } = req.body;
+      const { userId, cardName, cardBalance } = req.body;
       await cards.create({
         userId,
         cardName,
-        cardType,
+        cardBalance,
       });
       res.status(201).json({ message: "Card added successfully!" });
     } catch (err) {
