@@ -15,6 +15,19 @@ class cardsControllers {
     }
   }
 
+  static async getCard(req, res, next) {
+    try {
+      const { userId } = req.body;
+      let getCard = await cards.findAll({
+        where: { userId },
+      });
+      // console.log(getUser);
+      res.status(200).json(getCard);
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async updateCard(req, res) {
     try {
       const { id, cardName } = req.body;
