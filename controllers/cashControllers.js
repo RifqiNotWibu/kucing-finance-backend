@@ -15,6 +15,19 @@ class cashControllers {
     }
   }
 
+  static async getCash(req, res, next) {
+    try {
+      const { userId } = req.body;
+      let getCash = await cash.findAll({
+        where: { userId },
+      });
+      // console.log(getUser);
+      res.status(200).json(getCash);
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async updateCash(req, res) {
     try {
       const { id, cashName } = req.body;
