@@ -6,7 +6,7 @@ class userControllers {
   static async signUp(req, res, next) {
     try {
       const { username, email, password } = req.body;
-      let pass = await hashPassword(pass);
+      let pass = await hashPassword(password);
 
       if (!emailValidator.validate(email)) {
         return res.status(400).json({ message: "Incorrect email format!" });
@@ -27,8 +27,7 @@ class userControllers {
 
       res.status(201).json({ message: "User registered successfully" });
     } catch (err) {
-      // res.status(500).json({ message: `${err.message}` });
-      next(err);
+      res.status(500).json({ message: `${err.message}` });
     }
   }
 
