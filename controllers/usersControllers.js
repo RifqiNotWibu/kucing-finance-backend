@@ -6,8 +6,7 @@ class userControllers {
   static async signUp(req, res) {
     try {
       const { username, email, pass } = req.body;
-      let password = await hashPassword(password);
-      console.log(pass);
+      let password = await hashPassword(pass);
       if (!emailValidator.validate(email)) {
         return res.status(400).json({ message: "Incorrect email format!" });
       }
