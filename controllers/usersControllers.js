@@ -3,11 +3,11 @@ const emailValidator = require("email-validator");
 const { hashPassword, comparePassword } = require("../utils/bcryptUtils");
 
 class userControllers {
-  static async signUp(req, res, next) {
+  static async signUp(req, res) {
     try {
-      const { username, email, password } = req.body;
-      let pass = await hashPassword(password);
-
+      const { username, email, pass } = req.body;
+      let password = await hashPassword(password);
+      console.log(pass);
       if (!emailValidator.validate(email)) {
         return res.status(400).json({ message: "Incorrect email format!" });
       }
@@ -19,10 +19,10 @@ class userControllers {
       }
 
       //CREATE QUERY
-      let signUp = await users.create({
+      await users.create({
         username,
         email,
-        pass,
+        password,
       });
 
       res.status(201).json({ message: "User registered successfully" });
