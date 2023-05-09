@@ -7,6 +7,6 @@ router.post("/signup", usersControllers.signUp);
 router.post("/signin", usersControllers.login);
 router.patch("/update", usersControllers.updateUser);
 router.post("/delete", usersControllers.deleteUser);
-router.get("/get", usersControllers.getUser);
+router.post("/get", usersControllers.getUser);
 
 module.exports = router;
