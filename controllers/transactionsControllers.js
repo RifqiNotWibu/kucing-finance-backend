@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const { transactions, categories } = require("../models");
 
 class transactionsControllers {
@@ -30,9 +31,15 @@ class transactionsControllers {
 
   static async getTransaction(req, res, next) {
     try {
-      const { userId } = req.body;
+      const { userId, year, month } = req.body;
       let getTransaction = await transactions.findAll({
-        where: { userId },
+        where: {
+          createdAt: {
+            [Op.gte]: new Date(year, month, 1), // greater than or equal to the start of the month
+            [Op.lt]: new Date(year, month + 1, 1),
+          },
+          userId,
+        },
       });
       res.status(200).json(getTransaction);
     } catch (err) {
