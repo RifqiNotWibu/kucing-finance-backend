@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
       userId: DataTypes.INTEGER,
       cardName: DataTypes.STRING,
       cardBalance: DataTypes.FLOAT,
-      cardType: DataTypes.STRING,
       isActive: DataTypes.BOOLEAN,
     },
     {

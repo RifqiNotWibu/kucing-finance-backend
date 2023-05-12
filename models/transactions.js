@@ -23,9 +23,9 @@ module.exports = (sequelize, DataTypes) => {
   transactions.init(
     {
       userId: DataTypes.INTEGER,
-      transAccount: DataTypes.INTEGER,
-      transToAccount: DataTypes.INTEGER,
-      categId: DataTypes.INTEGER,
+      transCash: DataTypes.INTEGER,
+      transCard: DataTypes.INTEGER,
+      category: DataTypes.STRING,
       transType: DataTypes.STRING,
       transAmount: DataTypes.FLOAT,
       transNote: DataTypes.STRING,
