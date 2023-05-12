@@ -18,9 +18,9 @@ var transporter = nodemailer.createTransport({
 
 var mailOptions = {
   from: process.env.GMAIL,
-  to: "gianbariq@gmail.com",
-  subject: "BAriq anjayYyY",
-  text: "Seutujubaiklah",
+  to: "charis12876@gmail.com",
+  subject: "Kontol bat ni project sumpah",
+  text: "ketikseutujubaiklah",
 };
 
 transporter.sendMail(mailOptions, function (error, info) {

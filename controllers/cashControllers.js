@@ -20,6 +20,7 @@ class cashControllers {
       const { userId } = req.body;
       let getCash = await cash.findAll({
         where: { userId },
+        attributes: ["cashName"],
       });
       // console.log(getUser);
       res.status(200).json(getCash);

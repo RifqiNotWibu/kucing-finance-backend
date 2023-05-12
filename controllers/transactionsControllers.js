@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { transactions } = require("../models");
+const { transactions, cards } = require("../models");
 
 class transactionsControllers {
   static async addTransaction(req, res) {
@@ -23,7 +23,7 @@ class transactionsControllers {
         transAmount,
         transNote,
       });
-      res.status(201).json({ message: "Category added successfully!" });
+      res.status(201).json({ message: "Transaction added successfully!" });
     } catch (err) {
       res.status(500).json({ message: `${err.message}` });
     }
@@ -32,16 +32,31 @@ class transactionsControllers {
   static async getTransaction(req, res, next) {
     try {
       const { userId, year, month } = req.body;
-      let getTransaction = await transactions.findAll({
+      let getTransaction = await cards.findAll({
         where: {
           createdAt: {
-            [Op.gte]: new Date(year, month, 1), // greater than or equal to the start of the month
+            [Op.gte]: new Date(year, month, 1),
             [Op.lt]: new Date(year, month + 1, 1),
           },
           userId,
         },
+        include: {
+          model: transactions,
+          attributes: [
+            "transCash",
+            "transCard",
+            "category",
+            "transType",
+            "transAmount",
+            "transNote",
+            "createdAt",
+          ],
+        },
+        attributes: ["cardName"],
       });
-      res.status(200).json(getTransaction);
+      res.status(200).json({
+        getTransaction,
+      });
     } catch (err) {
       next(err);
     }

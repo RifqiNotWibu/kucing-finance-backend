@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       transactions.belongsTo(models.cards, {
         as: "transCardId",
-        foreignKey: "transAccount",
+        foreignKey: "transCard",
       });
 
       transactions.belongsTo(models.cash, {
         as: "transCashId",
-        foreignKey: "transAccount",
+        foreignKey: "transCash",
       });
     }
   }
