@@ -6,8 +6,8 @@ class transactionsControllers {
     try {
       const {
         userId,
-        transAccount,
-        transToAccount,
+        transCash,
+        transCard,
         category,
         transType,
         transAmount,
@@ -16,8 +16,8 @@ class transactionsControllers {
 
       await transactions.create({
         userId,
-        transAccount,
-        transToAccount,
+        transCash,
+        transCard,
         category,
         transType,
         transAmount,
