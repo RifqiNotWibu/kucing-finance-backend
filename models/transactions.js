@@ -18,11 +18,6 @@ module.exports = (sequelize, DataTypes) => {
         as: "transCashId",
         foreignKey: "transAccount",
       });
-
-      transactions.belongsTo(models.categories, {
-        as: "transCateg",
-        foreignKey: "categId",
-      });
     }
   }
   transactions.init(
