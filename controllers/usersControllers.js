@@ -114,6 +114,14 @@ class userControllers {
       next(err);
     }
   }
+
+  // static async forgetPass(req, res) {
+  //   try {
+  //     const {otp}
+  //   } catch (err) {
+  //     res.status(500).json({ message: `${err.message}` });
+  //   }
+  // }
 }
 
 module.exports = userControllers;
