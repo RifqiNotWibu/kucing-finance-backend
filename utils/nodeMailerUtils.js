@@ -5,33 +5,33 @@ var transporter = nodemailer.createTransport({
   service: "gmail",
   secure: true,
   logger: true,
-  debug: true,
   secureConnection: false,
   auth: {
-    user: process.env.GMAIL,
-    pass: process.env.GMAILPASS,
+    user: "kucingtech@gmail.com",
+    pass: "dslfhzzpggohkoqh",
   },
   tls: {
     rejectUnauthorized: true,
   },
 });
 
-var mailOptions = {
-  from: process.env.GMAIL,
-  to: "charis12876@gmail.com",
-  subject: "Kontol bat ni project sumpah",
-  text: "ketikseutujubaiklah",
+function generateRandomNumber() {
+  const min = 10000;
+  const max = 99999;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+const sendMailer = (email) => {
+  const otp = generateRandomNumber().toString();
+  var mailOptions = {
+    from: process.env.GMAIL,
+    to: email,
+    subject: "Forget password OTP",
+    text: `This is your one time password : ${otp}`,
+  };
+  transporter.sendMail(mailOptions);
+  return otp;
 };
 
-transporter.sendMail(mailOptions, function (error, info) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Email sent: " + info.response);
-  }
-});
-
 module.exports = {
-  transporter,
-  mailOptions,
+  sendMailer,
 };

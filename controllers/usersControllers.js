@@ -1,7 +1,8 @@
 const { users } = require("../models");
 const emailValidator = require("email-validator");
 const { hashPassword, comparePassword } = require("../utils/bcryptUtils");
-
+const { sendMailer } = require("../utils/nodeMailerUtils");
+const { fn } = require("sequelize");
 class userControllers {
   static async signUp(req, res) {
     try {
@@ -117,10 +118,26 @@ class userControllers {
   static async forgetPassEmail(req, res) {
     try {
       const { email } = req.body;
-      await users.findOne({
+      let findEmail = await users.findOne({
         where: { email, isActive: 1 },
       });
-      res.status(200).json({ message: "Email not found" });
+
+      if (!findEmail) {
+        return res.status(200).json({ message: "Email not found" });
+      }
+
+      let genOtp = await sendMailer(email);
+
+      await users.update(
+        {
+          otp: genOtp,
+          otpExp: fn("NOW"),
+        },
+        {
+          where: { email },
+        }
+      );
+      res.status(200).json({ message: "debug" });
     } catch (err) {
       res.status(400).json({ message: `${err.message}` });
     }
