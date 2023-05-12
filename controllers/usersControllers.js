@@ -51,7 +51,7 @@ class userControllers {
       return res.status(200).json({
         message: "User login success!",
         data: {
-          id: findUser.id,
+          userId: findUser.id,
           username: findUser.username,
         },
       });

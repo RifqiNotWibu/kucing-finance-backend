@@ -1,4 +1,5 @@
 # User Added
+.env.utils
 .gitignore
 package-lock.json
 logs
