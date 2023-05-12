@@ -13,18 +13,18 @@ module.exports = {
       },
     });
     await queryInterface.addConstraint("transactions", {
-      fields: ["transAccount"],
+      fields: ["transCash"],
       type: "foreign key",
-      name: "cash_transAccount",
+      name: "cash_transCash",
       references: {
         table: "cash",
         field: "id",
       },
     });
     await queryInterface.addConstraint("transactions", {
-      fields: ["transAccount"],
+      fields: ["transCard"],
       type: "foreign key",
-      name: "card_transAccount", //NAMANYA BEDAIN
+      name: "card_transCard",
       references: {
         table: "cards",
         field: "id",
