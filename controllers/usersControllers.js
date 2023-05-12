@@ -108,20 +108,23 @@ class userControllers {
       let getUser = await users.findOne({
         where: { id, isActive: 1 },
       });
-      // console.log(getUser);
       res.status(200).json(getUser);
     } catch (err) {
       next(err);
     }
   }
 
-  // static async forgetPass(req, res) {
-  //   try {
-  //     const {otp}
-  //   } catch (err) {
-  //     res.status(500).json({ message: `${err.message}` });
-  //   }
-  // }
+  static async forgetPassEmail(req, res) {
+    try {
+      const { email } = req.body;
+      await users.findOne({
+        where: { email, isActive: 1 },
+      });
+      res.status(200).json({ message: "Email not found" });
+    } catch (err) {
+      res.status(400).json({ message: `${err.message}` });
+    }
+  }
 }
 
 module.exports = userControllers;
