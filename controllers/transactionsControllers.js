@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { transactions, categories } = require("../models");
+const { transactions } = require("../models");
 
 class transactionsControllers {
   static async addTransaction(req, res) {
@@ -8,7 +8,7 @@ class transactionsControllers {
         userId,
         transAccount,
         transToAccount,
-        categId,
+        category,
         transType,
         transAmount,
         transNote,
@@ -18,7 +18,7 @@ class transactionsControllers {
         userId,
         transAccount,
         transToAccount,
-        categId,
+        category,
         transType,
         transAmount,
         transNote,
