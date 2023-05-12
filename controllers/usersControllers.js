@@ -123,7 +123,7 @@ class userControllers {
       });
 
       if (!findEmail) {
-        return res.status(200).json({ message: "Email not found" });
+        return res.status(401).json({ message: "Email not found" });
       }
 
       let genOtp = await sendMailer(email);
@@ -137,7 +137,7 @@ class userControllers {
           where: { email },
         }
       );
-      res.status(200).json({ message: "debug" });
+      res.status(200).json({ message: "Email Sent" });
     } catch (err) {
       res.status(400).json({ message: `${err.message}` });
     }
