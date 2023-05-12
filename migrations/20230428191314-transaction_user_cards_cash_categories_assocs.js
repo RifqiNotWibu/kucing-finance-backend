@@ -3,35 +3,35 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addConstraint("TRANSACTIONS", {
+    await queryInterface.addConstraint("transactions", {
       fields: ["userId"],
       type: "foreign key",
       name: "id_userId",
       references: {
-        table: "USERS",
+        table: "users",
         field: "id",
       },
     });
-    await queryInterface.addConstraint("TRANSACTIONS", {
+    await queryInterface.addConstraint("transactions", {
       fields: ["transAccount"],
       type: "foreign key",
       name: "cash_transAccount",
       references: {
-        table: "CASH",
+        table: "cash",
         field: "id",
       },
     });
-    await queryInterface.addConstraint("TRANSACTIONS", {
+    await queryInterface.addConstraint("transactions", {
       fields: ["transAccount"],
       type: "foreign key",
       name: "card_transAccount", //NAMANYA BEDAIN
       references: {
-        table: "CARDS",
+        table: "cards",
         field: "id",
       },
     });
 
-    await queryInterface.addConstraint("TRANSACTIONS", {
+    await queryInterface.addConstraint("transactions", {
       fields: ["transToAccount"],
       type: "foreign key",
       name: "cash_transToAccount",
@@ -40,7 +40,7 @@ module.exports = {
         field: "id",
       },
     });
-    await queryInterface.addConstraint("TRANSACTIONS", {
+    await queryInterface.addConstraint("transactions", {
       fields: ["transToAccount"],
       type: "foreign key",
       name: "card_transToAccount", //NAMANYA BEDAIN

@@ -1,28 +1,28 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.addConstraint('CARDS', {
-       fields: ['userId'],
-       type: 'foreign key',
-       name: 'cards_users_assoc',
-       references: {
-          table: 'USERS',
-          field: 'id'
-       }
-      });
+  async up(queryInterface, Sequelize) {
+    await queryInterface.addConstraint("cards", {
+      fields: ["userId"],
+      type: "foreign key",
+      name: "cards_users_assoc",
+      references: {
+        table: "users",
+        field: "id",
+      },
+    });
   },
 
-  async down (queryInterface, Sequelize) {
-    await queryInterface.removeConstraint('CARDS', {
-        fields: ['userId'],
-        type: 'foreign key',
-        name: 'cards_users_assoc',
-        references: {
-          table: 'USERS',
-          field: 'id'
-        }
-      });
-  }
+  async down(queryInterface, Sequelize) {
+    await queryInterface.removeConstraint("cards", {
+      fields: ["userId"],
+      type: "foreign key",
+      name: "cards_users_assoc",
+      references: {
+        table: "users",
+        field: "id",
+      },
+    });
+  },
 };

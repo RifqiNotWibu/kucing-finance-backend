@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("CARDS", {
+    await queryInterface.createTable("cards", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -17,9 +17,6 @@ module.exports = {
       },
       cardBalance: {
         type: Sequelize.FLOAT,
-      },
-      cardType: {
-        type: Sequelize.STRING,
       },
       isActive: {
         type: Sequelize.BOOLEAN,
@@ -36,6 +33,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("CARDS");
+    await queryInterface.dropTable("cards");
   },
 };
