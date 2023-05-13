@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { transactions } = require("../models");
+const { transactions, cards, cash } = require("../models");
 
 class transactionsControllers {
   static async addTransaction(req, res) {
@@ -14,6 +14,25 @@ class transactionsControllers {
         transNote,
       } = req.body;
 
+      if (transType == "income" && transCash != null) {
+        const findCash = await cash.findOne({ where: { id: userId } });
+        findCash.cashBalance += transAmount;
+        await findCash.save();
+      } else if (transType == "income" && transCard != null) {
+        const findCard = await cards.findOne({ where: { id: userId } });
+        findCard.cardBalance += transAmount;
+        await findCard.save();
+      }
+
+      if (transType == "outcome" && transCash != null) {
+        const findCash = await cash.findOne({ where: { id: userId } });
+        findCash.cashBalance -= transAmount;
+        await findCash.save();
+      } else if (transType == "outcome" && transCard != null) {
+        const findCard = await cards.findOne({ where: { id: userId } });
+        findCard.cardBalance -= transAmount;
+        await findCard.save();
+      }
       await transactions.create({
         userId,
         transCash,
@@ -23,7 +42,7 @@ class transactionsControllers {
         transAmount,
         transNote,
       });
-      res.status(201).json({ message: "Category added successfully!" });
+      res.status(201).json({ message: "Transaction added successfully!" });
     } catch (err) {
       res.status(500).json({ message: `${err.message}` });
     }
