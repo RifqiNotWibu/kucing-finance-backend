@@ -63,18 +63,22 @@ class userControllers {
 
   static async updateUser(req, res) {
     try {
-      const { id, username, password } = req.body;
+      const { id, oldPassword, password } = req.body;
 
-      //UPDATE QUERY
-      await users.update(
-        {
-          username: username,
-          password: password,
-        },
-        {
-          where: { id, isActive: 1 },
-        }
-      );
+      let findPass = await users.findOne({
+        where: { id },
+      });
+      if (oldPassword == findPass.password) {
+        await users.update(
+          {
+            password: password,
+          },
+          {
+            where: { id, isActive: 1 },
+          }
+        );
+      }
+
       res.status(200).json({ message: "User updated succesfully" });
     } catch (err) {
       res.status(500).json({ message: `${err.message}` });
