@@ -158,10 +158,11 @@ class userControllers {
 
       if (otp == userOtp.otp) {
         return res.status(200).json({ message: "OTP confirmed!" });
+      } else {
+        res.status(400).json({ message: "Otp not found" });
       }
-      res.status(400).json();
     } catch (err) {
-      res.status(400).json({ message: "OTP is not authorized" });
+      res.status(401).json({ message: "OTP is not authorized" });
     }
   }
 }
