@@ -61,27 +61,34 @@ class userControllers {
     }
   }
 
-  static async updateUser(req, res) {
+  static async updateUser(req, res, next) {
     try {
-      const { id, oldPassword, password } = req.body;
+      const { id, oldPassword, pass } = req.body;
 
-      let findPass = await users.findOne({
+      const findUser = await users.findOne({
         where: { id },
       });
-      if (oldPassword == findPass.password) {
-        await users.update(
-          {
-            password: password,
-          },
-          {
-            where: { id, isActive: 1 },
-          }
-        );
+
+      const checkPassword = await comparePassword(
+        oldPassword,
+        findUser.password
+      );
+
+      if (!checkPassword) {
+        return res.status(401).json({ message: "Password doesn't match" });
       }
 
-      res.status(200).json({ message: "User updated succesfully" });
+      let hashedPassword = await hashPassword(pass);
+
+      await users.update(
+        {
+          password: hashedPassword,
+        },
+        { where: { id } }
+      );
+      res.status(201).json({ message: "User updated succesfully" });
     } catch (err) {
-      res.status(500).json({ message: `${err.message}` });
+      next(err);
     }
   }
 
