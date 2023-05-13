@@ -20,7 +20,7 @@ class cardsControllers {
       const { userId } = req.body;
       let getCard = await cards.findAll({
         where: { userId },
-        attributes: ["cardName"],
+        attributes: ["cardName", "cardBalance"],
       });
       // console.log(getUser);
       res.status(200).json(getCard);
