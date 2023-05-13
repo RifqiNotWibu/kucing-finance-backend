@@ -63,20 +63,7 @@ class userControllers {
 
   static async updateUser(req, res, next) {
     try {
-      const { id, oldPassword, pass } = req.body;
-
-      const findUser = await users.findOne({
-        where: { id },
-      });
-
-      const checkPassword = await comparePassword(
-        oldPassword,
-        findUser.password
-      );
-
-      if (!checkPassword) {
-        return res.status(401).json({ message: "Password doesn't match" });
-      }
+      const { id, pass } = req.body;
 
       let hashedPassword = await hashPassword(pass);
 
