@@ -3,6 +3,9 @@ const emailValidator = require("email-validator");
 const { hashPassword, comparePassword } = require("../utils/bcryptUtils");
 const { sendMailer } = require("../utils/nodeMailerUtils");
 const { fn } = require("sequelize");
+const { Op } = require("sequelize");
+const moment = require("moment");
+
 class userControllers {
   static async signUp(req, res) {
     try {
@@ -140,6 +143,25 @@ class userControllers {
       res.status(200).json({ message: "Email Sent" });
     } catch (err) {
       res.status(400).json({ message: `${err.message}` });
+    }
+  }
+
+  static async forgetPassOtp(req, res) {
+    try {
+      const { email, otp } = req.body;
+      let userOtp = await users.findOne({
+        where: {
+          email,
+          otpExp: { [Op.gte]: moment().subtract(10, "minutes").toDate() },
+        },
+      });
+
+      if (otp == userOtp.otp) {
+        return res.status(200).json({ message: "OTP confirmed!" });
+      }
+      res.status(400).json();
+    } catch (err) {
+      res.status(400).json({ message: "OTP is not authorized" });
     }
   }
 }
