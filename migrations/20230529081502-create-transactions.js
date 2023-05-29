@@ -29,6 +29,9 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: 1,
       },
+      userid: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
