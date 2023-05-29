@@ -4,7 +4,7 @@ const { transactions } = require("../models");
 class incomeControllers {
   static async addIncome(req, res, next) {
     try {
-      const { type, title, amount, category, description } = req.body;
+      const { type, title, amount, category, description, userId } = req.body;
 
       if (!title || !category || !description) {
         return res.status(400).json({
@@ -33,6 +33,7 @@ class incomeControllers {
         amount,
         category,
         description,
+        userId,
       });
 
       res.status(201).json({ message: "income created successfully!" });
@@ -43,6 +44,12 @@ class incomeControllers {
 
   static async getIncomes(req, res) {
     try {
+      const { userId, type } = req.body;
+      console.log(userId);
+      const getIncomes = await transactions.findAll({
+        where: { userId, type },
+      });
+      res.status(200).json(getIncomes); //ganti status
     } catch (err) {
       res.status(500).json({ message: "Server error" });
     }
