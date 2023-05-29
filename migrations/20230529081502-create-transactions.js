@@ -29,7 +29,7 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: 1,
       },
-      userid: {
+      userId: {
         type: Sequelize.INTEGER,
       },
       createdAt: {
