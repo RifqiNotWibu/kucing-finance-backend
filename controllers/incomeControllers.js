@@ -45,11 +45,37 @@ class incomeControllers {
   static async getIncomes(req, res) {
     try {
       const { userId, type } = req.body;
-      console.log(userId);
       const getIncomes = await transactions.findAll({
-        where: { userId, type },
+        where: { userId, type, isActive: 1 },
       });
+
       res.status(200).json(getIncomes); //ganti status
+    } catch (err) {
+      res.status(500).json({ message: "Server error" });
+    }
+  }
+
+  static async deleteIncome(req, res) {
+    try {
+      const { id } = req.params;
+      const { userId } = req.body;
+
+      const findIncome = await transactions.findOne({
+        where: { userId, id, type: "income", isActive: 1 },
+      });
+
+      if (!findIncome) {
+        return res.status(200).json({ message: "Income not found!" });
+      }
+
+      await transactions.update(
+        { isActive: 0 },
+        {
+          where: { userId, id, type: "income" },
+        }
+      );
+
+      return res.status(200).json({ message: "Income deleted successfully!" });
     } catch (err) {
       res.status(500).json({ message: "Server error" });
     }
