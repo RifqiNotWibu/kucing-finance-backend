@@ -43,9 +43,9 @@ class incomeControllers {
 
   static async getIncomes(req, res) {
     try {
-      const { userId, type } = req.body;
+      const { userId } = req.body;
       const getIncomes = await transactions.findAll({
-        where: { userId, type, isActive: 1 },
+        where: { userId, type: "income", isActive: 1 },
       });
 
       res.status(200).json(getIncomes); //ganti status
