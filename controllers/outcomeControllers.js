@@ -53,6 +53,32 @@ class outcomeControllers {
       res.status(500).json({ message: "Server error" });
     }
   }
+
+  static async deleteIncome(req, res) {
+    try {
+      const { id } = req.params;
+      const { userId } = req.body;
+
+      const findOutcome = await transactions.findOne({
+        where: { userId, id, type: "outcome", isActive: 1 },
+      });
+
+      if (!findOutcome) {
+        return res.status(200).json({ message: "Outcome not found!" });
+      }
+
+      await transactions.update(
+        { isActive: 0 },
+        {
+          where: { userId, id, type: "outcome" },
+        }
+      );
+
+      return res.status(200).json({ message: "Outcome deleted successfully!" });
+    } catch (err) {
+      res.status(500).json({ message: "Server error" });
+    }
+  }
 }
 
 module.exports = outcomeControllers;
