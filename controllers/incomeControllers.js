@@ -3,7 +3,7 @@ const { transactions } = require("../models");
 class incomeControllers {
   static async addIncome(req, res, next) {
     try {
-      const { type, title, amount, category, description, userId } = req.body;
+      const { title, amount, category, description, userId } = req.body;
 
       if (!title || !category || !description) {
         return res.status(400).json({
@@ -21,14 +21,14 @@ class incomeControllers {
           .json({ message: "Amount field has to be a number!" });
       }
 
-      if (type !== "income" && type !== "outcome") {
-        return res.status(400).json({ message: "Invalid type value" });
-      }
+      // if (type !== "income" && type !== "outcome") {
+      //   return res.status(400).json({ message: "Invalid type value" });
+      // }
 
       //INSERT
       await transactions.create({
+        type: "income",
         title,
-        type,
         amount,
         category,
         description,
