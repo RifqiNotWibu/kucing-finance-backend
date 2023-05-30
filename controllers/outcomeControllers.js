@@ -41,7 +41,7 @@ class outcomeControllers {
     }
   }
 
-  static async getIncomes(req, res) {
+  static async getOutcomes(req, res) {
     try {
       const { userId } = req.body;
       const getOutcomes = await transactions.findAll({
@@ -54,7 +54,7 @@ class outcomeControllers {
     }
   }
 
-  static async deleteIncome(req, res) {
+  static async deleteOutcome(req, res) {
     try {
       const { id } = req.params;
       const { userId } = req.body;
