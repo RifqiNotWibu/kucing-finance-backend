@@ -40,6 +40,19 @@ class outcomeControllers {
       next(err);
     }
   }
+
+  static async getIncomes(req, res) {
+    try {
+      const { userId } = req.body;
+      const getOutcomes = await transactions.findAll({
+        where: { userId, type: "outcome", isActive: 1 },
+      });
+
+      res.status(200).json(getOutcomes); //ganti status
+    } catch (err) {
+      res.status(500).json({ message: "Server error" });
+    }
+  }
 }
 
 module.exports = outcomeControllers;
