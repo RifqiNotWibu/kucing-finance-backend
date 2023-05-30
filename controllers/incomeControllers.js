@@ -1,4 +1,3 @@
-const { INTEGER } = require("sequelize");
 const { transactions } = require("../models");
 
 class incomeControllers {
@@ -36,7 +35,7 @@ class incomeControllers {
         userId,
       });
 
-      res.status(201).json({ message: "income created successfully!" });
+      res.status(201).json({ message: "Income created successfully!" });
     } catch (err) {
       next(err);
     }
