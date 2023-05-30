@@ -7,4 +7,7 @@ router.use("/user", userRoutes);
 const incomeRoutes = require("./incomeRoutes.js");
 router.use("", incomeRoutes);
 
+const outcomeRoutes = require("./outcomeRoutes.js");
+router.use("", outcomeRoutes);
+
 module.exports = router;
