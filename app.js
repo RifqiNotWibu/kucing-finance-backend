@@ -1,15 +1,23 @@
-const express = require("express");
-const router = require("./routers");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+const express = require('express')
+const router = require('./routers')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const app = express()
 
-const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(router);
+require('dotenv').config()
 
-var port = process.env.PORT || 3000;
+allowedOrigin = 'http://localhost:3001'
+app.use(
+  cors({
+    origin: allowedOrigin,
+  })
+)
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(router)
 
-app.listen(port, "0.0.0.0", () => {
-  console.log("server has started on port " + port);
-});
+var port = process.env.PORT
+
+app.listen(port, '0.0.0.0', () => {
+  console.log('server has started on port ' + port)
+})
