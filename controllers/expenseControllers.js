@@ -1,4 +1,5 @@
 const { transactions } = require('../models')
+const { Op } = require('sequelize')
 
 class expenseControllers {
   static async addExpense(req, res, next) {
@@ -48,6 +49,37 @@ class expenseControllers {
       res.status(200).json(getExpense) //ganti status
     } catch (err) {
       res.status(500).json({ message: 'Server error' })
+    }
+  }
+
+  static async getExpensesByFilter(req, res, next) {
+    try {
+      const { userId } = req.params
+      const { year, month } = req.query
+      let startDate, endDate
+
+      if (month == 0) {
+        startDate = new Date(year, 1, 1)
+        endDate = new Date(year, 12, 31)
+      } else if (month > 0) {
+        startDate = new Date(year, month - 1, 1)
+        endDate = new Date(year, month, 0)
+      }
+
+      const getExpensesByFilter = await transactions.findAll({
+        where: {
+          userId,
+          type: 'expense',
+          isActive: 1,
+          date: {
+            [Op.between]: [startDate, endDate], // Filter by the createdAt column
+          },
+        },
+      })
+
+      res.status(200).json(getExpensesByFilter)
+    } catch (err) {
+      next(err)
     }
   }
 
