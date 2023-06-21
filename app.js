@@ -7,7 +7,7 @@ const app = express()
 require('dotenv').config()
 
 const apiPrefix = '/api/v1'
-allowedOrigin = 'http://localhost:3001'
+allowedOrigin = 'http://rifqifadhillah.com'
 
 app.use(
   cors({
