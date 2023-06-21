@@ -11,9 +11,10 @@ allowedOrigins = ['https://rifqifadhillah.com']
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: '*',
   })
 )
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(apiPrefix, router)
