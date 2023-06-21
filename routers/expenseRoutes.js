@@ -1,10 +1,15 @@
 const express = require('express')
 const router = express.Router()
 
-const expenseControllers = require('../controllers/expenseControllers.js')
+const expenseRoutes = require('../controllers/expenseControllers.js')
 
-router.post('/addExpense', expenseControllers.addExpense)
-router.get('/getExpense/:userId', expenseControllers.getExpenses)
-router.delete('/deleteExpense/:id', expenseControllers.deleteExpense)
+router.post('/addExpense', verifyToken, expenseRoutes.addExpense)
+router.get('/getExpense/:userId', verifyToken, expenseRoutes.getExpenses)
+router.get(
+  '/transactions-expense/:userId',
+  verifyToken,
+  expenseRoutes.getExpensesByFilter
+)
+router.delete('/deleteExpense/:id', verifyToken, expenseRoutes.deleteExpense)
 
 module.exports = router
