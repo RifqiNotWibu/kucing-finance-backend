@@ -4,7 +4,7 @@ const { hashPassword, comparePassword } = require('../utils/bcryptUtils')
 const { sendMailer } = require('../utils/nodeMailerUtils')
 const { fn, Op } = require('sequelize')
 const moment = require('moment')
-const { generateToken } = require('../utils/jwtUtils')
+const { generateToken } = require('../utils/jwtUtils.js')
 
 class userControllers {
   static async signUp(req, res) {
@@ -59,7 +59,7 @@ class userControllers {
       })
       return res.status(200).json({
         token: generatingToken,
-        data: {
+        user: {
           id: findUser.id,
           email: findUser.email,
           username: findUser.username,
@@ -93,8 +93,6 @@ class userControllers {
       const { id, password } = req.body
       let passwordCheck = await users.findOne({ where: { id } })
       if (password != passwordCheck.password) {
-        //STUDYCASE
-        console.log(passwordCheck)
         return res.status(400).json({ message: 'Password does not match' })
       }
 

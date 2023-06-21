@@ -6,10 +6,6 @@ const generateToken = (payload) => {
   })
 }
 
-const verifyToken = (token) => {
-  return jwt.verify(token, process.env.TOKEN_KEY)
-}
-
 const refreshToken = (token) => {
   let payload = verifyToken(token)
   return jwt.sign(
@@ -26,4 +22,4 @@ const refreshToken = (token) => {
     }
   )
 }
-module.exports = { generateToken, verifyToken, refreshToken }
+module.exports = { generateToken, refreshToken }
