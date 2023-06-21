@@ -7,7 +7,7 @@ const app = express()
 require('dotenv').config()
 
 const apiPrefix = '/api/v1'
-allowedOrigin = 'http://rifqifadhillah.com'
+allowedOrigin = 'https://rifqifadhillah.com/'
 
 app.use(
   cors({
