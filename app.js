@@ -6,7 +6,9 @@ const app = express()
 
 require('dotenv').config()
 
+const apiPrefix = '/api/v1'
 allowedOrigin = 'http://localhost:3001'
+
 app.use(
   cors({
     origin: allowedOrigin,
@@ -14,10 +16,10 @@ app.use(
 )
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(router)
+app.use(apiPrefix, router)
 
 var port = process.env.PORT
 
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, () => {
   console.log('server has started on port ' + port)
 })
