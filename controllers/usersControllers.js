@@ -7,7 +7,7 @@ const moment = require('moment')
 const { generateToken } = require('../utils/jwtUtils.js')
 
 class userControllers {
-  static async signUp(req, res) {
+  static async register(req, res) {
     try {
       const { username, email, pass } = req.body
       let password = await hashPassword(pass)
