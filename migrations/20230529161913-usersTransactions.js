@@ -1,16 +1,16 @@
-"use strict";
+'use strict'
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addConstraint("transactions", {
-      fields: ["userId"],
-      type: "foreign key",
+    await queryInterface.addConstraint('transactions', {
+      fields: ['userId'],
+      type: 'foreign key',
       references: {
-        table: "users",
-        field: "id",
+        table: 'users',
+        field: 'id',
       },
-    });
+    })
   },
 
   async down(queryInterface, Sequelize) {
@@ -21,4 +21,4 @@ module.exports = {
      * await queryInterface.dropTable('users');
      */
   },
-};
+}

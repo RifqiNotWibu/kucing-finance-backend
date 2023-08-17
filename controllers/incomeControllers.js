@@ -47,7 +47,7 @@ class incomeControllers {
         where: { userId, type: 'income', isActive: 1 },
       })
 
-      res.status(200).json(getIncomes) //ganti status
+      res.status(200).json(getIncomes)
     } catch (err) {
       res.status(500).json({ message: 'Server error' })
     }
